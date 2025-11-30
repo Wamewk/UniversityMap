@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>상호작용 지도</title>
+    <title>University Map</title>
     
 <style>
     body {
@@ -75,6 +75,7 @@
         margin-bottom: 10px;
         border-radius: 3px;
         object-fit: cover;
+        cursor: pointer;
     }
 
     .tooltip-content strong {
@@ -105,6 +106,64 @@
         visibility: visible;
         opacity: 1;
     }
+
+    .fixed-overlay{
+        position: absolute;
+        top: 10px;
+        right:10px;
+        width: 200px;
+        height: auto;
+        border: 2px solid #000000;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        z-index: 5;
+        cursor: pointer;
+    }
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 10000;
+    padding-top: 60px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.9);
+}
+
+.modal-content {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    animation-name: zoom;
+    animation-duration: 0.6s;
+}
+
+.close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+@keyframes zoom {
+    from {transform: scale(0)} 
+    to {transform: scale(1)}
+}
 </style>
 </head>
 <body>
@@ -114,17 +173,10 @@
     <div class="map-container">
         <img src="map.jpg" alt="캠퍼스 지도" class="campus-map">
 
-        <!-- A동 -->
-        <div class="marker" style="top: 66%; left: 70.2%;">
-            <span class="arrow-icon">🔶</span>
-            <div class="tooltip-content">
-                <img src="A.jpg" alt="A동" class="tooltip-image">
-                🔹A동
-                <p>설명문 설명문 설명문 설명문</p>
-            </div>
+        <img src="Bridge.jpg" alt="구름다리" class="fixed-overlay tooltip-image">
+        <div class="marker" style="top:66%; left:70%">
         </div>
 
-        <!-- B동 -->
         <div class="marker" style="top: 80%; left: 63.5%;">
             <span class="arrow-icon">🔶</span>
             <div class="tooltip-content">
@@ -134,7 +186,6 @@
             </div>
         </div>
         
-        <!-- C동 -->
         <div class="marker" style="top: 59%; left: 60%;">
             <span class="arrow-icon">🔶</span>
             <div class="tooltip-content">
@@ -144,27 +195,15 @@
             </div>
         </div>
         
-        <!-- D동 -->
         <div class="marker" style="top: 52.5%; left:52.3%">
             <span class="arrow-icon">🔶</span>
             <div class="tooltip-content">
                 <img src="D.jpg" alt="D동" class="tooltip-image">
-               🔹D동 (공학2관)
-                <p>설명문 설명문 설명문 설명문</p>
-            </div>
-        </div>
-
-        <!-- E동 -->
-        <div class="marker" style="top: 35%; left: 40.7%;">
-            <span class="arrow-icon">🔶</span>
-            <div class="tooltip-content">
-                <img src="E.jpg" alt="E동" class="tooltip-image">
-                🔹E동
+                🔹D동 (공학2관)
                 <p>설명문 설명문 설명문 설명문</p>
             </div>
         </div>
         
-        <!-- M동 -->
         <div class="marker" style="top: 54.8%; left: 11%;">
             <span class="arrow-icon">🔶</span>
             <div class="tooltip-content">
@@ -175,5 +214,48 @@
         </div>
 
         </div>
+        <div id="imageModal" class="modal">
+            <span class="close">&times;</span>
+            <img class="modal-content" id="img01">
+            <div id="caption"></div>
+        </div>
+    </div>
+    
+        <script>
+            var modal = document.getElementById("imageModal");
+            
+            var modalImg = document.getElementById("img01");
+            var captionText = document.getElementById("caption");
+            var span = document.getElementsByClassName("close")[0];
+            
+            var images = document.getElementsByClassName("tooltip-image");
+            
+            for (var i = 0; i < images.length; i++) {
+                images[i].onclick = function() {
+                    modal.style.display = "block";
+                    modalImg.src = this.src;
+                }
+            }
+            
+            span.onclick = function() {
+                modal.style.display = "none";
+            }
+
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+            
+            document.onkeydown = function(e) {
+                e = e || window.event;
+                if (e.key === 'Escape') {
+                    if (modal.style.display === "block") {
+                        modal.style.display = "none";
+                    }
+                }
+            };
+
+        </script>
     </body>
 </html>
