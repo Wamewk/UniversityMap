@@ -6,9 +6,6 @@
     <title>상호작용 지도</title>
     
 <style>
-    /* -------------------------------------- */
-    /* 중앙 정렬을 위한 스타일 */
-    /* -------------------------------------- */
     body {
         text-align: center; 
     }
@@ -17,9 +14,6 @@
         margin-bottom: 20px;
     }
     
-    /* -------------------------------------- */
-    /* 1. 기본 컨테이너 및 지도 이미지 스타일 */
-    /* -------------------------------------- */
     .map-container {
         position: relative; 
         display: inline-block; 
@@ -34,9 +28,6 @@
         display: block;
     }
 
-    /* -------------------------------------- */
-    /* 2. 마커 스타일 */
-    /* -------------------------------------- */
     .marker {
         position: absolute;
         cursor: pointer;
@@ -50,32 +41,22 @@
         transform: translate(-50%, -100%); 
     }
 
-    /* -------------------------------------- */
-    /* 3. 팝업 (툴팁) 스타일 (위치 조정 완료) */
-    /* -------------------------------------- */
     .tooltip-content {
         visibility: hidden;
         opacity: 0; 
         position: absolute;
-        
-        /* 🔥 팝업 위치 조정! 40px는 마커 아이콘 위에 적절한 간격을 둡니다. */
         bottom: 40px; 
-        
         left: 50%;
-        /* 🔥 translateY(-10px) 제거! 불필요한 추가 상승 방지 */
         transform: translateX(-50%); 
-        
         padding: 10px 15px;
         background-color: #333;
         color: white;
         border-radius: 5px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-        
         width: 280px; 
         max-width: 90vw;
         max-height: 350px;
         overflow-y: auto;
-        
         text-align: left;
         white-space: normal;
         transition: opacity 0.3s, visibility 0.3s;
@@ -83,7 +64,6 @@
         z-index: 100; 
     }
 
-    /* 팝업 내부 이미지 스타일 */
     .tooltip-image {
         width: 100%;
         height: auto;
@@ -94,22 +74,19 @@
         object-fit: cover;
     }
 
-    /* 팝업 내부 제목 (strong 태그) 스타일 */
     .tooltip-content strong {
         display: block;
         font-size: 1.1em;
         margin-bottom: 5px;
         color: #ffd700;
     }
-    
-    /* 팝업 내부 단락 (p) 스타일 */
+
     .tooltip-content p {
         margin: 5px 0;
         font-size: 0.9em;
         line-height: 1.5;
     }
-    
-    /* 팝업 꼬리 (화살표) 스타일 */
+
     .tooltip-content::after {
         content: "";
         position: absolute;
@@ -121,9 +98,6 @@
         border-color: #333 transparent transparent transparent; 
     }
 
-    /* -------------------------------------- */
-    /* 4. 마우스 오버 시 팝업 표시 */
-    /* -------------------------------------- */
     .marker:hover .tooltip-content {
         visibility: visible;
         opacity: 1;
@@ -199,4 +173,5 @@
 
         </div>
     </body>
+
 </html>
